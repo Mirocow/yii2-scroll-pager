@@ -1,8 +1,8 @@
 <?php
 
-namespace kop\y2sp;
+namespace mirocow\y2sp;
 
-use kop\y2sp\assets\InfiniteAjaxScrollAsset;
+use mirocow\y2sp\assets\InfiniteAjaxScrollAsset;
 use yii\base\InvalidConfigException;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
@@ -25,14 +25,14 @@ use Yii;
  *      'dataProvider' => $dataProvider,
  *      'itemOptions' => ['class' => 'item'],
  *      'itemView' => '_item_view',
- *      'pager' => ['class' => \kop\y2sp\ScrollPager::className()]
+ *      'pager' => ['class' => \mirocow\y2sp\ScrollPager::className()]
  * ]);
  * </code>
  *
  * This widget is using {@link http://infiniteajaxscroll.com/ JQuery Infinite Ajax Scroll plugin}.
  *
- * @link      http://kop.github.io/yii2-scroll-pager Y2SP project page.
- * @license   https://github.com/kop/yii2-scroll-pager/blob/master/LICENSE.md MIT
+ * @link      http://mirocow.github.io/yii2-scroll-pager Y2SP project page.
+ * @license   https://github.com/mirocow/yii2-scroll-pager/blob/master/LICENSE.md MIT
  *
  * @author    Ivan Koptiev <ivan.koptiev@codex.systems>
  * @version   2.2
@@ -140,6 +140,12 @@ class ScrollPager extends Widget
      * Make sure there is only one element that matches the selector.
      */
     public $historyPrev = '.previous';
+    
+    /**
+     * @var array HTML attributes for the link in a pager container tag.
+     * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
+     */
+    public $linkOptions = [];    
 
     /**
      * @var string $overflowContainer A selector for "div" HTML element to use as an overflow container.
@@ -230,11 +236,11 @@ class ScrollPager extends Widget
 
         // Register translations source
         Yii::$app->i18n->translations = ArrayHelper::merge(Yii::$app->i18n->translations, [
-            'kop\y2sp' => [
+            'mirocow\y2sp' => [
                 'class' => PhpMessageSource::className(),
-                'basePath' => '@vendor/kop/yii2-scroll-pager/messages',
+                'basePath' => '@vendor/nirocow/yii2-scroll-pager/messages',
                 'fileMap' => [
-                    'kop\y2sp' => 'general.php'
+                    'mirocow\y2sp' => 'general.php'
                 ]
             ]
         ]);
@@ -244,12 +250,12 @@ class ScrollPager extends Widget
 
         // Set default trigger text if not set
         if ($this->triggerText === null) {
-            $this->triggerText = Yii::t('kop\y2sp', 'Load more items');
+            $this->triggerText = Yii::t('mirocow\y2sp', 'Load more items');
         }
 
         // Set default "none left" message text if not set
         if ($this->noneLeftText === null) {
-            $this->noneLeftText = Yii::t('kop\y2sp', 'You reached the end');
+            $this->noneLeftText = Yii::t('mirocow\y2sp', 'You reached the end');
         }
     }
 
@@ -334,6 +340,7 @@ class ScrollPager extends Widget
         // Render pagination links
         echo LinkPager::widget([
             'pagination' => $this->pagination,
+            'linkOptions' => $this->linkOptions,
             'options' => [
                 'class' => 'pagination hidden'
             ]
