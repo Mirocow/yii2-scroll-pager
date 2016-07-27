@@ -222,11 +222,6 @@ class ScrollPager extends Widget
     ];
 
     /**
-     * @var array $events
-     */
-    public $events = [];
-
-    /**
      * @var \yii\data\Pagination The pagination object that this pager is associated with.
      * You must set this property in order to make ScrollPager work.
      */
@@ -420,14 +415,6 @@ class ScrollPager extends Widget
                     "{$this->id}_ias_{$name}"
                 );
             }
-        }
-
-        foreach ($this->events as $event => $function){
-            $this->view->registerJs(
-                "jQuery.ias().on('{$event}', {$function});",
-                View::POS_READY,
-                "{$this->id}_ias_{$event}"
-            );
         }
     }
 
